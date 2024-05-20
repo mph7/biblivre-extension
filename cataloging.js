@@ -123,4 +123,15 @@ isbnButton.addEventListener("click", async function (event) {
 
 document.querySelector(".biblivre_form_body .field .clear").before(isbnButton);
 
+const createIsbnButton = document.createElement("a");
+createIsbnButton.innerHTML = "Novo registro por ISBN";
+createIsbnButton.classList.add("button", "center");
 
+const buttonDiv = document.createElement("div");
+buttonDiv.classList.add("buttons", "buttons-div");
+buttonDiv.append(createIsbnButton);
+buttonDiv.onclick = () => CatalogingInput.newRecord();
+
+buttonDiv.addEventListener("click", (e) => {});
+
+document.querySelector("#cataloging_search > div.page_title").append(buttonDiv);
