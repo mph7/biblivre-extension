@@ -1,0 +1,6 @@
+#biblivre_circulation_form_body > div.field.photo_field,
+#circulation_user > div.selected_record.tabs.new > div.tabs_extra_content,
+#circulation_user > div.selected_record.tabs > div.tabs_extra_content {
+    display: none !important;
+}
+

@@ -1,0 +1,102 @@
+async function getAuthor(authorId) {
+    return fetch("https://openlibrary.org" + authorId + ".json")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("HTTP error " + response.status);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            authorName = data.personal_name.split(" ");
+            return (
+                authorName[authorName.length - 1].toUpperCase() +
+                ", " +
+                authorName.slice(0, authorName.length - 1).join(" ")
+            );
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+        });
+}
+
+async function getBook(isbn) {
+    return fetch("https://openlibrary.org/isbn/" + isbn + ".json")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("HTTP error " + response.status);
+            }
+            return response.json();
+        })
+        .then(async (data) => {
+            return {
+                title: data.title,
+                author: await getAuthor(data.authors[0].key),
+                date: data.publish_date,
+            };
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+        });
+}
+
+const isbnButton = document.createElement("a");
+isbnButton.innerHTML = "Buscar por ISBN";
+isbnButton.classList.add("button", "center");
+
+isbnButton.addEventListener("click", async function (event) {
+    event.preventDefault();
+    const isbn = document.querySelector(
+        "#biblivre_form > div:nth-child(1) > fieldset > div.subfields > div > div.value > input",
+    ).value;
+
+    //create notification
+    extensionMessage = document.createElement("div");
+    extensionMessage.innerHTML =
+        '<div class="message success" style="display: block;"> <div>Carregando, por favor aguarde!</div>    </div>';
+    extensionMessage.setAttribute("id", "extension-messages");
+    document.querySelector("#messages").append(extensionMessage);
+
+    const book = await getBook(isbn);
+
+    // TO-DO: personalizar a mensagem quando não conseguir encontrar algum dos dados
+    createdExtensionMessage = document.querySelector("#extension-messages > div > div");
+    createdExtensionMessage.innerHTML = "Dados do livro inseridos com sucesso!";
+    setTimeout(() => {
+        document.querySelector("#extension-messages").remove();
+    }, 2000);
+	
+	let noTitle
+	let noAuthor
+	let noDate
+
+    // Set title
+    try {
+        if (book.title != undefined) {
+            document.querySelector(
+                "#biblivre_form > div:nth-child(2) > fieldset > div.subfields > div:nth-child(3) > div.value > input",
+            ).value = book.title;
+        }
+    } catch (error) {}
+
+    // Set author
+    try {
+        if (book.author != undefined) {
+            document.querySelector(
+                "#biblivre_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(2) > div.value > input",
+            ).value = book.author;
+        }
+    } catch (error) {}
+
+    // Set publication date
+    try {
+        if (book.date != undefined) {
+            document.querySelector(
+                "#biblivre_form > div:nth-child(4) > fieldset > div.subfields > div:nth-child(3) > div.value > input",
+            ).value = book.date;
+        }
+    } catch (error) {
+		
+	}
+});
+
+document.querySelector(".biblivre_form_body .field .clear").before(isbnButton);

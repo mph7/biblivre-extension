@@ -1,0 +1,18 @@
+{
+    "name": "Biblivre ISBN Search",
+    "description": "Extension to search and fill data using ISBN",
+    "version": "1.0",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["http://localhost/Biblivre5/?action=cataloging_bibliographic"],
+            "js": ["cataloging.js"],
+            "css": ["cataloging.css"]
+        },
+        {
+            "matches": ["http://localhost/Biblivre5/?action=circulation_user*"],
+            "js": ["circulation.js"],
+            "css": ["circulation.css"]
+        }
+    ]
+}
