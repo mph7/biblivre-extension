@@ -49,8 +49,7 @@ extensionMessage.innerHTML =
     '<div class="message success" style="display: block;"> <div>Carregando, por favor aguarde!</div>    </div>';
 extensionMessage.setAttribute("id", "extension-messages");
 
-isbnButton.addEventListener("click", async function (event) {
-    event.preventDefault();
+async function searchIsbn() {
     const isbn = document.querySelector(
         "#biblivre_form > div:nth-child(1) > fieldset > div.subfields > div > div.value > input",
     ).value;
@@ -119,6 +118,11 @@ isbnButton.addEventListener("click", async function (event) {
     setTimeout(() => {
         document.querySelector("#extension-messages").remove();
     }, 2000);
+}
+
+isbnButton.addEventListener("click", async function (event) {
+    event.preventDefault();
+    searchIsbn();
 });
 
 document.querySelector(".biblivre_form_body .field .clear").before(isbnButton);
@@ -130,8 +134,23 @@ createIsbnButton.classList.add("button", "center");
 const buttonDiv = document.createElement("div");
 buttonDiv.classList.add("buttons", "buttons-div");
 buttonDiv.append(createIsbnButton);
-buttonDiv.onclick = () => CatalogingInput.newRecord();
 
-buttonDiv.addEventListener("click", (e) => {});
+// buttonDiv.addEventListener("click", (e) => {});
 
 document.querySelector("#cataloging_search > div.page_title").append(buttonDiv);
+
+document
+    .querySelector("#cataloging_search > div.page_title > div.buttons.buttons-div > a")
+    .setAttribute("onclick", "CatalogingInput.newRecord()");
+
+document
+    .querySelector("#cataloging_search > div.page_title > div.buttons.buttons-div > a")
+    .addEventListener("click", () => {
+        let searchValue = document.querySelector(
+            "#cataloging_search > div.search_box > div.simple_search.submit_on_enter > div.query > input",
+        ).value;
+        document.querySelector(
+            "#biblivre_form > div:nth-child(1) > fieldset > div.subfields > div > div.value > input",
+        ).value = searchValue;
+        searchIsbn();
+    });
