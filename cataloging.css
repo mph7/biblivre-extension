@@ -19,7 +19,21 @@
 #biblivre_form > div:nth-child(5) > fieldset > div.subfields > div:nth-child(3),
 #biblivre_form > div:nth-child(5) > fieldset > div.subfields > div:nth-child(4),
 #cataloging_search > div.selected_record.tabs.new > div.tabs_extra_content > div:nth-child(4) > div > fieldset > div:nth-child(5),
-#cataloging_search > div.selected_record.tabs.new > div.tabs_extra_content > div:nth-child(4) > div > fieldset > div:nth-child(7)
+#cataloging_search > div.selected_record.tabs.new > div.tabs_extra_content > div:nth-child(4) > div > fieldset > div:nth-child(7),
+#biblivre_holding_form > div:nth-child(1),
+#biblivre_holding_form > div:nth-child(2),
+#biblivre_holding_form > div:nth-child(4),
+/* Informações sobre localização */
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(1),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(2),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(3),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(4),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(6),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(7),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(8),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(9),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(10),
+#biblivre_holding_form > div:nth-child(3) > fieldset > div.subfields > div:nth-child(11)
 {
     display: none;
 }
